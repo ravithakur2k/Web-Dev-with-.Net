@@ -1,0 +1,33 @@
+﻿@page
+@model QuickGlanceModel
+@{
+}
+
+<h2>Quick Glance</h2>
+
+ <div class="container">
+        <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Destination Name
+                </th>
+                <th>
+                    Country Name
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Destinations) {
+            <tr>
+                <td>
+                     @item.Name
+                </td>   
+                <td>
+                    @item.Country.Name
+                </td>  
+            </tr>
+            }
+            </tbody>
+        </table>
+    </div>

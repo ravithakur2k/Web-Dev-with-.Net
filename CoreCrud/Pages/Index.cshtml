@@ -1,0 +1,58 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h1>Dashboard</h1>
+
+<div class="row">
+    <div class="col-md-6">
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th colspan="2">Statistics</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total Number of Countries</td>
+                    <td class="text-right">@Model.CountOfCountries</td>
+                </tr>  
+                <tr>
+                    <td>Total Number of Destinations</td>
+                    <td class="text-right">@Model.CountOfDestinations</td>
+                </tr>  
+                <tr>
+                    <td>Not So Enjoyable Destinations</td>
+                    <td class="text-right">@Model.CountOfNotSoEnjoyableDestinations</td>
+                </tr>  
+                <tr>
+                    <td>Count of Enjoyable Destinations</td>
+                    <td class="text-right">@Model.CountofEnjoyableDestinations</td>
+                </tr>                                                                                               
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Links</h3>
+            </div>
+            <div class="panel-body">
+                
+                <ul>
+                    <li><a asp-page="CountryProfile" asp-route-id="1">Country Profile (ID=1)</a></li>
+                    <li><a asp-page="CountryProfile" asp-route-id="2">Country Profile (ID=2)</a></li>
+					<li><a asp-page="CountryProfile" asp-route-id="3">Country Profile (ID=3)</a></li>
+                    <li><a asp-page="CountryProfile" asp-route-id="4">Country Profile (ID=4)</a></li>
+					<li><a asp-page="CountryProfile" asp-route-id="5">Country Profile (ID=5)</a></li> 
+                </ul>
+                <ul>
+                    <li><a asp-page="QuickGlance">Quick Glance Page</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
