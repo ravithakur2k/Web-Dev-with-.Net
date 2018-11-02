@@ -1,0 +1,70 @@
+@page
+@model CouponManagement.Pages.Coupons.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Coupon</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Coupon.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Coupon.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Coupon.ValidDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Coupon.ValidDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Coupon.ExpiryDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Coupon.ExpiryDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Coupon.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Coupon.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Coupon.Rating)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Coupon.Rating)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Coupon.Category)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Coupon.Category.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Coupon.Seller)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Coupon.Seller.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Coupon.Customer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Coupon.Customer.Id)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Coupon.Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

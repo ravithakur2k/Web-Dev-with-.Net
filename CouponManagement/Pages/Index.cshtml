@@ -1,0 +1,76 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "CouponReady";
+}
+<h1>CouponReady</h1>
+</ hr>
+<img src="https://az826390.vo.msecnd.net/cdn/media/home/a_votre_service/a-votre-service-coupons-et-promotion-politique-de-coupons-rabais-1160x365-pub66867.ashx?w=547" align="right">
+<p>
+   Having trouble managing coupon statistics? Or facing problems in analysing best customer base for your coupon? These are some of the questions that CouponReady answers. This interactive coupon management system aims to provided best in class services ranging from coupon creation, validation to end-to-end analytics. CouponReady is highly trusted as one of the best solutions to help you out in getting your coupons to the desired consumers in a hassle free manner.
+</p>
+
+<h2>Dashboard</h2>
+<div class="row">
+    <div class="col-md-6">
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th colspan="2">Statistics</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total Number of Coupons</td>
+                    <td class="text-right">@Model.CountofCoupons</td>
+                </tr>  
+                <tr>
+                    <td>Total Number of Categories</td>
+                    <td class="text-right">@Model.CountOfCategories</td>
+                </tr>  
+                <tr>
+                    <td>Number of lowest rated coupons</td>
+                    <td class="text-right">@Model.CountOfRatingEqualTo1</td>
+                </tr>  
+                <tr>
+                    <td>Number of highest rated coupons</td>
+                    <td class="text-right">@Model.CountOfRatingEqualTo5</td>
+                </tr> 
+                 <tr>
+                    <td>Number of expired coupons</td>
+                    <td class="text-right">@Model.CountOfExpiredCoupons</td>
+                </tr>                                                                                               
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Links</h3>
+            </div>
+            <div class="panel-body">
+
+                <ul>
+                    <li><a asp-page="/Coupons/Index">Coupons Page</a></li>
+                    <li><a asp-page="/CouponCategories/Index">Coupon Category Page</a></li>
+                    <li><a asp-page="/Customers/Index">Customer page</a></li>
+					<li><a asp-page="/Sellers/Index">Seller Page</a></li> 
+                </ul>
+                
+                <ul>
+                    <li><a asp-page="CouponInfo" asp-route-id="1">Coupon Info (ID=1)</a></li>
+                    <li><a asp-page="CouponInfo" asp-route-id="2">Coupon Info (ID=2)</a></li>
+					<li><a asp-page="CouponInfo" asp-route-id="3">Coupon Info (ID=3)</a></li> 
+                </ul>
+                <ul>
+                    <li><a asp-page="QuickGlance">Quick Glance</a></li>
+                    <li><a asp-page="SearchCoupons">Search Coupon</a></li>
+                    <li><a asp-page="CouponExpiry" asp-route-id="1">Expire Coupon (ID=1)</a></li>
+                    <li><a asp-page="SearchCustomer">Search Customer</a></li>
+                    <li><a asp-page="Analysis">Coupon Analysis</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

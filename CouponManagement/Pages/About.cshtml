@@ -1,0 +1,53 @@
+﻿@page
+@model AboutModel
+@{
+    ViewData["Title"] = "About";
+}
+<h1>@ViewData["About"]</h1>
+<h2>CouponReady at a Glance</h2>
+<ul>
+    <li>Corporate Headquarters : Cincinnati, Ohio</li>
+    <li>Founded: 2017</li>
+    <li>2017 Revenues: 77 Million</li>
+    <li>Employees: 100+</li>
+    <li>Global Headquarters: CouponReady Inc., 707 Martin Luther King Dr W, Cincinnati, Ohio 45220, USA</li>
+    <li>Phone: 1-513-399-9999</li>
+</ul>
+<h2>Our Vision</h2>
+<p>
+    The idea was borne out of solving a business problem which was ailing the industry for quite some time and we decided to come up with an innovative solution to address it. To enable businesses operate better by providing best in class services and improve the overall operatability of our clients. Our dedicated workforce strive to ensure optimum performance to deliver client satisfaction.
+</p>
+<h2>Leadership Team</h2>
+<head>
+<style>
+* {
+    box-sizing: border-box;
+}
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+}
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="column">
+    <img src="/images/ravi.jpg" alt="Ravi" height="200" width="200">
+    <p>Ravi Thakur (CEO)</p>
+  </div>
+  <div class="column">
+    <img src="/images/jaimin.jpg" alt="Jaimin" height="200" width="200">
+    <p>Jaimin Parekh (MD)</p>
+  </div>
+  <div class="column">
+    <img src="/images/arijit.jpg" alt="Arijit" height="200" width="200">
+    <p>Arijit Bhattacharjee (CTO)</p>
+  </div>
+</div>
+</body>

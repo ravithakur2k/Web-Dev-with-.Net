@@ -1,0 +1,70 @@
+@page
+@model CouponManagement.Pages.Coupons.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Coupon</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Coupon.Id" />
+            <div class="form-group">
+                <label asp-for="Coupon.Name" class="control-label"></label>
+                <input asp-for="Coupon.Name" class="form-control" />
+                <span asp-validation-for="Coupon.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coupon.ValidDate" class="control-label"></label>
+                <input asp-for="Coupon.ValidDate" class="form-control" />
+                <span asp-validation-for="Coupon.ValidDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coupon.ExpiryDate" class="control-label"></label>
+                <input asp-for="Coupon.ExpiryDate" class="form-control" />
+                <span asp-validation-for="Coupon.ExpiryDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coupon.Price" class="control-label"></label>
+                <input asp-for="Coupon.Price" class="form-control" />
+                <span asp-validation-for="Coupon.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coupon.Rating" class="control-label"></label>
+                <input asp-for="Coupon.Rating" class="form-control" />
+                <span asp-validation-for="Coupon.Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coupon.CategoryId" class="control-label"></label>
+                <select asp-for="Coupon.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <span asp-validation-for="Coupon.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coupon.SellerId" class="control-label"></label>
+                <select asp-for="Coupon.SellerId" class="form-control" asp-items="ViewBag.SellerId"></select>
+                <span asp-validation-for="Coupon.SellerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coupon.CustomerId" class="control-label"></label>
+                <select asp-for="Coupon.CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
+                <span asp-validation-for="Coupon.CustomerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

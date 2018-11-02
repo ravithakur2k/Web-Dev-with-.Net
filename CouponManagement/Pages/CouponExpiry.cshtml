@@ -1,0 +1,47 @@
+﻿@page
+@model CouponExpiryModel
+@{
+}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <form method="post" style="margin-top: 50px;">
+            
+            <div class="form-group">
+                <label class="control-label">Coupon Name</label>
+                <div>
+                    <p class="form-control-static">@Model.Coupon.Name</p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="control-label">Valid Date</label>
+                <div>
+                    <p class="form-control-static">@Model.Coupon.ValidDate</p>
+                </div>
+            </div>
+            
+            @if(Model.Coupon.ExpiryDate > DateTime.Today) {
+                
+                <input type="hidden" asp-for="ExpireCouponForm.CouponId" />
+                <div class="form-group">
+                    <label asp-for="ExpireCouponForm.ExpiryDate" class="control-label"></label>
+                    <input asp-for="ExpireCouponForm.ExpiryDate" class="form-control" />
+                    <span asp-validation-for="ExpireCouponForm.ExpiryDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Expire Coupon" class="btn btn-danger" />
+                </div>
+            } else {
+                 <div class="form-group">
+                    <label class="control-label">ExpiryDate</label>
+                    <div>
+                        <p class="form-control-static">@Model.Coupon.ExpiryDate.Value.ToString("MM-dd-yyyy")</p>
+                    </div>
+                </div>
+                <div class="alert alert-warning">
+                    <p>This coupon is expired </p>
+                </div>
+            }
+        </form>
+    </div>
+</div>

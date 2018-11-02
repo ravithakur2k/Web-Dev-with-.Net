@@ -1,0 +1,52 @@
+﻿@page
+@model SearchCouponsModel
+@{
+}
+
+<form action="" method="POST" style="margin-top: 50px;">
+  <div class="form-group">
+    <label class="control-label" for="search">Search Coupons Name</label>
+    <input type="text" class="form-control" name="search" id="search" />
+  </div>
+  <div class="form-group">
+    <input type="submit" value="Search Coupons" class="btn btn-default" />
+  </div>
+</form>
+
+
+@if(Model.SearchCompleted) {
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>ExpiryDate</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model.SearchResults.Count > 0) {
+                @foreach(var coupon in Model.SearchResults) {
+                    <tr>
+                        <td>@coupon.Name</td>
+                        <td>@coupon.Price</td>
+                        <td>@coupon.ExpiryDate</td>
+                        <td>@coupon.Rating</td>
+                    </tr>
+                }
+            } else {
+                <tr class="danger">
+                    <td colspan="4" class="text-center">
+                        No results found for term "@Model.Search"
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+} else {
+    <div class="alert alert-info">
+        <p>
+            Enter the search terms into the box and click <strong>Search Coupons Name</strong>
+        </p>
+    </div>
+}

@@ -1,0 +1,34 @@
+﻿@page
+@model QuickGlanceModel
+@{
+}
+
+
+<h2>Quick Glance</h2>
+
+ <div class="container">
+        <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Coupon Name
+                </th>
+                <th>
+                    Coupon Category
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Coupons) {
+            <tr>
+                <td>
+                     @item.Name
+                </td>   
+                <td>
+                    @item.Category.Name
+                </td>  
+            </tr>
+            }
+            </tbody>
+        </table>
+    </div>
