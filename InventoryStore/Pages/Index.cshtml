@@ -1,0 +1,137 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<head>
+    <style>
+        #indeximg{
+    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(../images/inventory.jpg);
+    background-size: cover;
+        }
+       h4,h2,label{
+            color: whitesmoke;
+        }
+        li{
+            color: gold;
+            font-weight: bold; 
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/css/Mob.css">
+</head>
+<body id="indeximg">
+    <div>
+        <h2>Inventory List</h2>
+        <ul id="inventorylist">
+        </ul>
+    </div>
+    <div>
+        <hr />
+        <form id="createInventoryForm" class="form">
+            <h4>Add new Inventory</h4>
+            <div class="form-group col-">
+                <label for="inventory">Inventory</label>
+                <input type="text" class="form-control" id="inventory" placeholder="Inventory Name" required/>
+            </div>                
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="text" class="form-control" id="quantity" placeholder="Quantity" required />
+            </div>
+            <div class="form-group">
+                <label for="product">Product ID</label>
+                <input type="text" class="form-control" id="product" placeholder="Product ID" required/>
+            </div>
+            <div class="form-group">
+                <label for="store">Store ID</label>
+                <input type="text" class="form-control" id="store" placeholder="Store ID" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+@section Scripts {
+    <script>
+        
+
+        $(function() {
+            loadData();
+            $("#createInventoryForm").submit(function() {
+                createInventory();
+                return false;
+            });
+        });
+        
+        function loadData() {
+            $.ajax({
+                url: "/api/inventories",
+                dataType: 'json',
+                contentType: 'application/json',
+                method: 'GET'
+            }).done(function(responseJSON,status,xhr) {
+                // process the response when status code is 200-299
+                buildInventoryList(responseJSON);
+            }).fail(function(xhr,status,error) {
+                // deal with error from server (status code 400-599)
+                alert("There was an error retrieving the data");
+            });
+        }
+        
+        function buildInventoryList(inventories) {
+            $("#inventorylist").empty();
+            $.each(inventories, function (index, item) {
+                var li = $('<li inventory-id="' + item.id + '"></li>');
+                $(li).text('Inv id:'+item.id+' - '+item.inventoryName + ' - ' + item.quantity + ' - ' + item.productID + ' - ' + item.storeID);
+                
+                $(li).append('<a href="#" class="btn-primary pull-right inventory-delete">Delete</a>')
+                $("#inventorylist").append(li);    
+            });
+        }
+
+
+            $("#inventorylist").on('click', 'a.inventory-delete', function() {
+                var id = $(this).parents("li").attr('inventory-id');
+                // call the delete method
+                deleteInventory(id);
+                return false;
+            });
+
+        function createInventory() {
+            var requestData = {
+                inventoryName: $("#inventory").val(), // GET THE Inventory VALUE
+                quantity: $("#quantity").val(), // GET THE Quantity VALUE
+                productID: $("#product").val(), // GET THE Product ID VALUE
+                storeID: $("#store").val() // GET THE Store ID VALUE
+            };
+            $.ajax({
+                url: 'http://localhost:5000/api/inventories',
+                dataType: 'json',
+                contentType: 'application/json',
+                method: 'POST',
+                data: JSON.stringify(requestData)
+            }).done(function(responseData, status, xhr) {
+                loadData(); // RELOAD THE INVENTORY DATA
+                $("#inventory").val(""); //CLEAR INVENTORY
+                $("#quantity").val(""); //CLEAR QUANTITY
+                $("#product").val(""); //CLEAR Product ID
+                $("#store").val(""); //CLEAR Store ID
+            }).fail(function(xhr, status, error) {
+                alert("There was an error saving your Inventory");
+            });
+        }
+
+        
+        function deleteInventory(id) {
+            $.ajax({
+                url: 'http://localhost:5000/api/inventories/' + id,
+                dataType: 'json',
+                contentType: 'application/json',
+                method: 'DELETE',
+            }).done(function(responseData, status, xhr) {
+                loadData(); // RELOAD THE Inventory DATA                
+            }).fail(function(xhr, status, error) {
+                alert("There was an error deleting your Inventory");
+            });
+        }
+
+    </script>
+}

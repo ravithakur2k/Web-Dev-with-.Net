@@ -1,0 +1,134 @@
+﻿@page
+@model storeModel
+@{
+    ViewData["Title"] = "Store page";
+}
+<head>
+    <style>
+        #storeimg{
+    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(../images/store.jpg);
+    background-size: cover;
+        }
+       h4,h2,label{
+            color: whitesmoke;
+        }
+        li{
+            color: gold;
+            font-weight: bold;  
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/css/Mob.css">
+</head>
+<body id="storeimg">
+<div>
+    <h2>Store List</h2>
+    <ul id="storelist">
+    </ul>
+</div>
+<div>
+    <hr />
+    <form id="createStoreForm" class="form">
+        <h4>Add New Store</h4>
+        <div class="form-group">
+            <label for="street">Street</label>
+            <input type="text" class="form-control" id="street" placeholder="Street" required/>
+        </div>                
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" class="form-control" id="city" placeholder="City" required />
+        </div>
+        <div class="form-group">
+            <label for="State">State</label>
+            <input type="text" class="form-control" id="state" placeholder="State" required/>
+        </div>
+        <div class="form-group">
+            <label for="zipcode">ZIP Code</label>
+            <input type="text" class="form-control" id="zipcode" placeholder="ZIP Code" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+@section Scripts {
+    <script>
+
+        $(function() {
+            loadData();
+            $("#createStoreForm").submit(function() {
+                createStore();
+                return false;
+            });
+        });
+
+        function loadData() {
+            $.ajax({
+                url: "/api/stores",
+                dataType: 'json',
+                contentType: 'application/json',
+                method: 'GET'
+            }).done(function(responseJSON,status,xhr) {
+                // process the response when status code is 200-299
+                buildStoreList(responseJSON);
+            }).fail(function(xhr,status,error) {
+                // deal with error from server (status code 400-599)
+                alert("There was an error retrieving the data");
+            });
+        }
+
+        function buildStoreList(stores) {
+            $("#storelist").empty();
+            $.each(stores, function (index, item) {
+                var li = $('<li store-id="' + item.id + '"></li>');
+                $(li).text('Store id:' + item.id + ' - ' + item.street + ' - ' + item.city + ' - ' + item.state + ' - ' + item.zip);
+                
+                $(li).append('<a href="#" class="btn-primary pull-right store-delete">Delete</a>')
+                $("#storelist").append(li);    
+            });
+        }
+
+        $("#storelist").on('click', 'a.store-delete', function() {
+                var id = $(this).parents("li").attr('store-id');
+                // call the delete method
+                deleteStore(id);
+                return false;
+            });
+        
+        function createStore() {
+            var requestData = {
+                street: $("#street").val(), // GET THE Street VALUE
+                city: $("#city").val(), // GET THE City VALUE
+                state: $("#state").val(), // GET THE State VALUE
+                zip: $("#zipcode").val() // GET THE ZIP code VALUE
+            };
+            $.ajax({
+                url: 'http://localhost:5000/api/stores',
+                dataType: 'json',
+                contentType: 'application/json',
+                method: 'POST',
+                data: JSON.stringify(requestData)
+            }).done(function(responseData, status, xhr) {
+                loadData(); // RELOAD THE Store DATA
+                $("#street").val(""); //CLEAR Street
+                $("#city").val(""); //CLEAR City
+                $("#state").val(""); //CLEAR QUANTITY
+                $("#zipcode").val(""); //CLEAR QUANTITY
+            }).fail(function(xhr, status, error) {
+                alert("There was an error saving your Store");
+            });
+        }
+
+        function deleteStore(id) {
+            $.ajax({
+                url: 'http://localhost:5000/api/stores/' + id,
+                dataType: 'json',
+                contentType: 'application/json',
+                method: 'DELETE',
+            }).done(function(responseData, status, xhr) {
+                loadData(); // RELOAD THE Store DATA                
+            }).fail(function(xhr, status, error) {
+                alert("There was an error deleting your Store");
+            });
+        }
+
+    </script>
+}

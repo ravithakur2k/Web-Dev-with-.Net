@@ -1,0 +1,130 @@
+﻿@page
+@model productModel
+@{
+    ViewData["Title"] = "Product page";
+}
+<head>
+    <style>
+        #productimg{
+    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(../images/product.jpg);
+    background-size: cover;
+        }
+       h4,h2,label{
+            color: whitesmoke;
+        }
+        li{
+            color: gold;
+            font-weight: bold; 
+        }
+    </style>
+<link rel="stylesheet" type="text/css" href="/css/Mob.css">
+</head>
+<body id="productimg">
+<div>
+    <h2>Product List</h2>
+    <ul id="productlist">
+    </ul>
+</div>
+<div>
+    <hr />
+    <form id="createProductForm" class="form">
+        <h4>Add New Product</h4>
+        <div class="form-group">
+            <label for="name">Product Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Product Name" required/>
+        </div>                
+        <div class="form-group">
+            <label for="size">Size</label>
+            <input type="text" class="form-control" id="size" placeholder="Size" required />
+        </div>
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text" class="form-control" id="price" placeholder="Price" required/>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+@section Scripts {
+    <script>
+
+    $(function() {
+            loadData();
+            $("#createProductForm").submit(function() {
+                createProduct();
+                return false;
+            });
+        });
+
+    function loadData() {
+            $.ajax({
+                url: "/api/products",
+                dataType: 'json',
+                contentType: 'application/json',
+                method: 'GET'
+            }).done(function(responseJSON,status,xhr) {
+                // process the response when status code is 200-299
+                buildProductList(responseJSON);
+            }).fail(function(xhr,status,error) {
+                // deal with error from server (status code 400-599)
+                alert("There was an error retrieving the data");
+            });
+        }
+    
+     function buildProductList(products) {
+            $("#productlist").empty();
+            $.each(products, function (index, item) {
+                var li = $('<li product-id="' + item.id + '"></li>');
+                $(li).text('Prod id:'+item.id+' - '+item.name + ' - ' + item.size + ' - ' + item.price);
+                
+                $(li).append('<a href="#" class="btn-primary pull-right product-delete">Delete</a>')
+                $("#productlist").append(li);    
+            });
+        }
+
+         $("#productlist").on('click', 'a.product-delete', function() {
+                var id = $(this).parents("li").attr('product-id');
+                // call the delete method
+                deleteProduct(id);
+                return false;
+            });
+        
+
+    function createProduct() {
+            var requestData = {
+                name: $("#name").val(), // GET THE Product VALUE
+                size: $("#size").val(), // GET THE Size VALUE
+                price: $("#price").val(), // GET THE Price VALUE
+               
+            };
+            $.ajax({
+                url: 'http://localhost:5000/api/products',
+                dataType: 'json',
+                contentType: 'application/json',
+                method: 'POST',
+                data: JSON.stringify(requestData)
+            }).done(function(responseData, status, xhr) {
+                loadData(); // RELOAD THE Product DATA
+                $("#name").val(""); //CLEAR INVENTORY
+                $("#size").val(""); //CLEAR QUANTITY
+                $("#price").val(""); //CLEAR Product ID
+            }).fail(function(xhr, status, error) {
+                alert("There was an error saving your Product");
+            });
+        }
+    
+    function deleteProduct(id) {
+            $.ajax({
+                url: 'http://localhost:5000/api/products/' + id,
+                dataType: 'json',
+                contentType: 'application/json',
+                method: 'DELETE',
+            }).done(function(responseData, status, xhr) {
+                loadData(); // RELOAD THE Product DATA                
+            }).fail(function(xhr, status, error) {
+                alert("There was an error deleting your Inventory");
+            });
+        }
+
+    </script>
+}

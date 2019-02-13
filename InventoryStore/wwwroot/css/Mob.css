@@ -1,0 +1,20 @@
+
+    @media only screen and (max-width: 600px) {
+        #indeximg{
+            background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(../images/invmobimg.jpg);
+            background-size: cover;
+                }
+      }
+
+      @media only screen and (max-width: 600px) {
+        #storeimg{
+            background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(../images/prdmob.png);
+            background-size: cover;
+                }
+      }
+      @media only screen and (max-width: 600px) {
+        #productimg{
+            background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(../images/storemob.jpg);
+            background-size: cover;
+                }
+      }
